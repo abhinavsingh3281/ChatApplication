@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "166667721716",
+    "project_id": "chatapplication-fed6e",
+    "storage_bucket": "chatapplication-fed6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166667721716:android:a5ca5965c82802f6a8f7a1",
+        "android_client_info": {
+          "package_name": "com.example.chatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166667721716-n443mrp136m65v1cb39asc1k44djjn9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIbDqKDsLxckfCg7Ki9TTHAdiGJzFJhFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166667721716-n443mrp136m65v1cb39asc1k44djjn9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
