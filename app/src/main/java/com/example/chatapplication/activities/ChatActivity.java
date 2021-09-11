@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ChatActivity extends BaseActivity {
 
@@ -39,6 +40,8 @@ public class ChatActivity extends BaseActivity {
     private PreferenceManager preferenceManager;
     private FirebaseFirestore database;
     private String conversionId=null;
+
+    private Boolean  isReceiverAvailable=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +126,31 @@ public class ChatActivity extends BaseActivity {
         binding.inputMessage.setText(null);
     }
 
+
+    private void listenAvailabilityOfRReceiver(){
+        database.collection(Constants.KEY_COLLECTION_USERS).document(receiverUser.id).addSnapshotListener(ChatActivity.this,(value, error) -> {
+            if(error!=null)
+            {
+                return;
+            }
+            if(value!=null)
+            {
+                if (value.getLong(Constants.KEY_AVAILABILITY)!=null)
+                {
+                    int availability= Objects.requireNonNull(value.getLong(Constants.KEY_AVAILABILITY)).intValue();
+                    isReceiverAvailable=availability==1;
+                }
+            }
+            if (isReceiverAvailable)
+            {
+                binding.textAvailability.setVisibility(View.VISIBLE);
+            }
+            else {
+                binding.textAvailability.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private void listenMessages(){
         database.collection(Constants.KEY_COLLECTION_CHAT).whereEqualTo(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID))
                 .whereEqualTo(Constants.KEY_RECEIVER_ID,receiverUser.id)
@@ -132,6 +160,7 @@ public class ChatActivity extends BaseActivity {
                 .whereEqualTo(Constants.KEY_RECEIVER_ID,preferenceManager.getString(Constants.KEY_USER_ID))
                 .addSnapshotListener(eventListener);
     }
+
 
     private Bitmap getBitMaoFromEncodedString(String encodedImage)
     {
@@ -196,4 +225,10 @@ public class ChatActivity extends BaseActivity {
             conversionId=documentSnapshot.getId();
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listenAvailabilityOfRReceiver();
+    }
 }
