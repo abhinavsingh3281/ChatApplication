@@ -13,9 +13,11 @@ To use the chat application, follow these steps to set it up on your Android dev
 
 2. Open Android Studio and import the project.
 
-3. Connect your Android device to your computer and ensure USB debugging is enabled.
+3. Delink the existing google firebase connection by deletion google-service.json file from the project and then you can setup your new firebase connection.
 
-4. Run the application on your device from Android Studio.
+4. Connect your Android device to your computer and ensure USB debugging is enabled.
+
+5. Run the application on your device from Android Studio.
 
 ```
     
